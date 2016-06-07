@@ -7,8 +7,9 @@ So I recommend using `tsdm` instead.
 ``` sh
 # Install tsdm globally (if not already done)
 $ npm install tsdm --global
-# Install streamline-node and add it to your package.json.
-$ npm install --save streamline-node
+# Install streamline-runtime and streamline-node 
+# and add them to your package.json.
+$ npm install --save streamline-runtime streamline-node
 # Link the definitions
 $ tsdm rewire
 # Enjoy :-)
