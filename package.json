@@ -1,0 +1,32 @@
+{
+  "name": "streamline-node",
+  "description": "Typescript definitions for streamline",
+  "version": "1.0.0",
+  "author": {
+    "name": "Bruno Jouhier"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Sage/streamline-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sage/streamline-node/issues"
+  },
+  "engines": {
+    "node": ">=0.10.8"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^1.8.10",
+    "tsdm": "^0.1.0-3",
+    "streamline-runtime": "^1.0.28"
+  },
+  "typescript": {
+    "definitions": "streamline-node.d.ts"
+  },
+  "scripts": {
+    "prepublish": "node build.js || nodejs build.js",
+    "test": "tsc --noImplicitAny test"
+  }
+}
