@@ -1,5 +1,3 @@
-/// <reference path="./typings/index.d.ts" />
-/// <reference path="./typings/tsd.d.ts" />
 declare module "zlib" {
     import { _ } from "streamline-runtime";
     import * as stream from "stream";

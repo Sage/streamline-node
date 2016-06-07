@@ -46,9 +46,9 @@ var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, l
         }
     }
     return lines;
-}, [
+}, process.argv[2] === '--debug' ? [
     '/// <reference path="./typings/index.d.ts" />',
     '/// <reference path="./typings/tsd.d.ts" />'
-]).join('\n');
+] : []).join('\n');
 
 fs.writeFileSync(output, result, 'utf8');
