@@ -9,7 +9,7 @@ So I recommend using `tsdm` instead.
 $ npm install tsdm --global
 # Install streamline-runtime and streamline-node 
 # and add them to your package.json.
-$ npm install --save streamline-runtime streamline-node
+$ npm install --save-dev streamline-runtime streamline-node
 # Link the definitions
 $ tsdm rewire
 # Enjoy :-)
