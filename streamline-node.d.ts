@@ -19,44 +19,44 @@ declare module "readline" {
     import * as events from "events";
     import * as stream from "stream";
     export interface Completer {
-        (line: string, _: _): any;
+        (line: string, _: _): CompleterResult;
     }
 }
 declare module "child_process" {
     import { _ } from "streamline-runtime";
     import * as events from "events";
     import * as stream from "stream";
-    export function exec(command: string, _?: _ ): ChildProcess;
-    export function exec(command: string, _?: [_] ): ChildProcess;
-    export function exec(command: string, options: ExecOptionsWithStringEncoding, _?: _ ): ChildProcess;
-    export function exec(command: string, options: ExecOptionsWithStringEncoding, _?: [_] ): ChildProcess;
-    export function exec(command: string, options: ExecOptionsWithBufferEncoding, _?: _ ): ChildProcess;
-    export function exec(command: string, options: ExecOptionsWithBufferEncoding, _?: [_] ): ChildProcess;
-    export function exec(command: string, options: ExecOptions, _?: _ ): ChildProcess;
-    export function exec(command: string, options: ExecOptions, _?: [_] ): ChildProcess;
-    export function execFile(file: string, _?: _ ): ChildProcess;
-    export function execFile(file: string, _?: [_] ): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptionsWithStringEncoding, _?: _ ): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptionsWithStringEncoding, _?: [_] ): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, _?: _ ): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, _?: [_] ): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptions, _?: _ ): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptions, _?: [_] ): ChildProcess;
-    export function execFile(file: string, args?: string[], _?: _ ): ChildProcess;
-    export function execFile(file: string, args?: string[], _?: [_] ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, _?: _ ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, _?: [_] ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, _?: _ ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, _?: [_] ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptions, _?: _ ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptions, _?: [_] ): ChildProcess;
+    export function exec(command: string, _?: _ ): string;
+    export function exec(command: string, _?: [_] ): [string, string];
+    export function exec(command: string, options: ExecOptionsWithStringEncoding, _?: _ ): string;
+    export function exec(command: string, options: ExecOptionsWithStringEncoding, _?: [_] ): [string, string];
+    export function exec(command: string, options: ExecOptionsWithBufferEncoding, _?: _ ): Buffer;
+    export function exec(command: string, options: ExecOptionsWithBufferEncoding, _?: [_] ): [Buffer, Buffer];
+    export function exec(command: string, options: ExecOptions, _?: _ ): string;
+    export function exec(command: string, options: ExecOptions, _?: [_] ): [string, string];
+    export function execFile(file: string, _?: _ ): string;
+    export function execFile(file: string, _?: [_] ): [string, string];
+    export function execFile(file: string, options?: ExecFileOptionsWithStringEncoding, _?: _ ): string;
+    export function execFile(file: string, options?: ExecFileOptionsWithStringEncoding, _?: [_] ): [string, string];
+    export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, _?: _ ): Buffer;
+    export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, _?: [_] ): [Buffer, Buffer];
+    export function execFile(file: string, options?: ExecFileOptions, _?: _ ): string;
+    export function execFile(file: string, options?: ExecFileOptions, _?: [_] ): [string, string];
+    export function execFile(file: string, args?: string[], _?: _ ): string;
+    export function execFile(file: string, args?: string[], _?: [_] ): [string, string];
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, _?: _ ): string;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, _?: [_] ): [string, string];
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, _?: _ ): Buffer;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, _?: [_] ): [Buffer, Buffer];
+    export function execFile(file: string, args?: string[], options?: ExecFileOptions, _?: _ ): string;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptions, _?: [_] ): [string, string];
 }
 declare module "dns" {
     import { _ } from "streamline-runtime";
     export function lookup(domain: string, family: number, _: _ ): string;
-    export function lookup(domain: string, family: number, _: [_] ): string;
+    export function lookup(domain: [string, number], family: number, _: [_] ): string;
     export function lookup(domain: string, _: _ ): string;
-    export function lookup(domain: string, _: [_] ): string;
+    export function lookup(domain: [string, number], _: [_] ): string;
     export function resolve(domain: string, rrtype: string, _: _ ): string[];
     export function resolve(domain: string, _: _ ): string[];
     export function resolve4(domain: string, _: _ ): string[];
@@ -100,14 +100,14 @@ declare module "fs" {
     export function fchmod(fd: number, mode: string, _?: _): void;
     export function lchmod(path: string | Buffer, mode: number, _?: _): void;
     export function lchmod(path: string | Buffer, mode: string, _?: _): void;
-    export function stat(path: string | Buffer, _?: _): void;
-    export function lstat(path: string | Buffer, _?: _): void;
-    export function fstat(fd: number, _?: _): void;
+    export function stat(path: string | Buffer, _?: _): Stats;
+    export function lstat(path: string | Buffer, _?: _): Stats;
+    export function fstat(fd: number, _?: _): Stats;
     export function link(srcpath: string | Buffer, dstpath: string | Buffer, _?: _): void;
     export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: string, _?: _): void;
-    export function readlink(path: string | Buffer, _?: _): void;
-    export function realpath(path: string | Buffer, _?: _): void;
-    export function realpath(path: string | Buffer, cache: {[path: string]: string}, _: _): void;
+    export function readlink(path: string | Buffer, _?: _): string;
+    export function realpath(path: string | Buffer, _?: _): string;
+    export function realpath(path: string | Buffer, cache: {[path: string]: string}, _: _): string;
     export function unlink(path: string | Buffer, _?: _): void;
     export function rmdir(path: string | Buffer, _?: _): void;
     export function mkdir(path: string | Buffer, _?: _): void;
@@ -116,9 +116,9 @@ declare module "fs" {
     export function mkdtemp(prefix: string, _?: _): string;
     export function readdir(path: string | Buffer, _?: _): string[];
     export function close(fd: number, _?: _): void;
-    export function open(path: string | Buffer, flags: string, _?: _): void;
-    export function open(path: string | Buffer, flags: string, mode: number, _?: _): void;
-    export function open(path: string | Buffer, flags: string, mode: string, _?: _): void;
+    export function open(path: string | Buffer, flags: string, _?: _): number;
+    export function open(path: string | Buffer, flags: string, mode: number, _?: _): number;
+    export function open(path: string | Buffer, flags: string, mode: string, _?: _): number;
     export function utimes(path: string | Buffer, atime: number, mtime: number, _?: _): void;
     export function utimes(path: string | Buffer, atime: Date, mtime: Date, _?: _): void;
     export function futimes(fd: number, atime: number, mtime: number, _?: _): void;
@@ -151,8 +151,8 @@ declare module "fs" {
 }
 declare module "crypto" {
     import { _ } from "streamline-runtime";
-    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, _: _): void;
-    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string, _: _): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, _: _): Buffer;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string, _: _): Buffer;
     export function randomBytes(size: number, _: _ ): Buffer;
     export function pseudoRandomBytes(size: number, _: _ ): Buffer;
 }

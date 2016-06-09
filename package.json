@@ -1,7 +1,7 @@
 {
   "name": "streamline-node",
   "description": "Typescript definitions for streamline",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Bruno Jouhier"
   },

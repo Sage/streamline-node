@@ -10,7 +10,7 @@ var importRe = /^\s*import /;
 
 var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, line) {
     var m;
-    if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err.*\)\s*=>\s*(?:(void|any)))\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
+    if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err.*\)\s*=>\s*(?:void|any))\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
         //console.error(m);
         var pair = m[2].split(/\)\s*=>\s*/);
         var newTypes = pair[0].split(',').map(arg => arg.split(/:\s*/)[1]);
