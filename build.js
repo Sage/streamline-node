@@ -10,13 +10,13 @@ var importRe = /^\s*import /;
 
 var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, line) {
     var m;
-    if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err.*\)\s*=>\s*void)\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
+    if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err.*\)\s*=>\s*(?:(void|any)))\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
         //console.error(m);
         var pair = m[2].split(/\)\s*=>\s*/);
         var newTypes = pair[0].split(',').map(arg => arg.split(/:\s*/)[1]);
         var oldType = pair[1];
-        if (oldType !== 'void' && oldType !== newTypes[0]) {
-            console.error("type mismatch: " + line + '\n' + oldTypes + '\n' + newTypes);
+        if (oldType !== 'void' && oldType !== 'any' && oldType !== newTypes[0]) {
+            console.error("type mismatch: " + line + '\n' + oldType + '\n' + newTypes);
         } else {
             line = line.replace(m[1], '_');
             lines.push(line.replace(m[2], '_').replace(m[3], newTypes[1] || 'void'));
