@@ -8,10 +8,11 @@ var openRe = /\{\s*$/;
 var closeRe = /^\s*\}/;
 var importRe = /^\s*import /;
 
+var ns = false;
+
 var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, line) {
     var m;
     if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err.*\)\s*=>\s*(?:void|any))\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
-        //console.error(m);
         var pair = m[2].split(/\)\s*=>\s*/);
         var newTypes = pair[0].split(',').map(arg => arg.split(/:\s*/)[1]);
         var oldType = pair[1];
@@ -19,9 +20,10 @@ var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, l
             console.error("type mismatch: " + line + '\n' + oldType + '\n' + newTypes);
         } else {
             line = line.replace(m[1], '_');
-            lines.push(line.replace(m[2], '_').replace(m[3], newTypes[1] || 'void'));
+            var magic = ns ? 'Streamline._' : '_';
+            lines.push(line.replace(m[2], magic).replace(m[3], newTypes[1] || 'void'));
             if (newTypes.length > 2) {
-                lines.push(line.replace(m[2], '[_]').replace(m[3], '[' + newTypes.slice(1).join(', ') + ']'));
+                lines.push(line.replace(m[2], '[' + magic + ']').replace(m[3], '[' + newTypes.slice(1).join(', ') + ']'));
             }
         }
     } else if (importRe.test(line)) {
@@ -31,8 +33,10 @@ var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, l
         line = line.replace(/\bclass (.*) implements (.*) \{/, "interface $1 {");
         lines.push(line);
         // insert streamline-runtime import
-        if (/declare\s*module/.test(line)) {
-            lines.push(/^ */.exec(line)[0] + '    import { _ } from "streamline-runtime";');
+        m = /^declare\s*(module|namespace)/.exec(line);
+        if (m) {
+            ns = m[1] === 'namespace';
+            if (!ns) lines.push(/^ */.exec(line)[0] + '    import { _ } from "streamline-runtime";');
         }
     } else if (closeRe.test(line)) {
         // backtrack on imports

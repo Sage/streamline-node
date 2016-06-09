@@ -1,6 +1,6 @@
 declare namespace NodeJS {
     export interface Domain extends Events {
-        bind(_: _): any;
+        bind(_: Streamline._): any;
     }
 }
 declare module "zlib" {
