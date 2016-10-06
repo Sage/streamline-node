@@ -1,8 +1,8 @@
 var fs = require('fs');
 var fsp = require('path');
 
-var input = fsp.join(__dirname, 'typings/globals/node/index.d.ts');
-var output = fsp.join(__dirname, 'streamline-node.d.ts');
+var input = fsp.join(__dirname, 'node_modules/@types/node/index.d.ts');
+var output = fsp.join(__dirname, 'index.d.ts');
 
 var openRe = /\{\s*$/;
 var closeRe = /^\s*\}/;
@@ -12,7 +12,8 @@ var ns = false;
 
 var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, line) {
     var m;
-    if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err.*\)\s*=>\s*(?:void|any))\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
+    if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err[^)]*\)\s*=>\s*(?:void|any))\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
+        if (/\bevent: "(error|lookup)",/.test(line)) return lines;
         var pair = m[2].split(/\)\s*=>\s*/);
         var newTypes = pair[0].split(',').map(arg => arg.split(/:\s*/)[1]);
         var oldType = pair[1];
@@ -30,7 +31,7 @@ var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, l
         lines.push(line);
     } else if (openRe.test(line)) {
         // keep imports but replace class ... implements ... by interface ...
-        line = line.replace(/\bclass (.*) implements (.*) \{/, "interface $1 {");
+        line = line.replace(/\bclass (.*) (implements|extends) (.*) \{/, "interface $1 {");
         lines.push(line);
         // insert streamline-runtime import
         m = /^declare\s*(module|namespace)/.exec(line);

@@ -16,10 +16,10 @@
     "node": ">=0.10.8"
   },
   "dependencies": {
+    "@types/node": "^6.0.45"
   },
   "devDependencies": {
-    "typescript": "^1.8.10",
-    "tsdm": "^0.1.0-3",
+    "typescript": "^2.0.3",
     "streamline-runtime": "^1.0.28"
   },
   "typescript": {
