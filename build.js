@@ -39,6 +39,9 @@ var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, l
             ns = m[1] === 'namespace';
             if (!ns) lines.push(/^ */.exec(line)[0] + '    import { _ } from "streamline-runtime";');
         }
+    } else if (/export function exists\(path.*, callback\?:/.test(line)) {
+        // special handling for fs.exists
+        lines.push('    export function exists(path: string | Buffer, _: _, __: _): void;');
     } else if (closeRe.test(line)) {
         // backtrack on imports
         var i = lines.length;

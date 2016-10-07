@@ -146,6 +146,7 @@ declare module "fs" {
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, _?: _): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, _?: _): void;
     export function appendFile(filename: string, data: any, _?: _): void;
+    export function exists(path: string | Buffer, _: _, __: _): void;
     export function access(path: string | Buffer, _: _): void;
     export function access(path: string | Buffer, mode: number, _: _): void;
 }
