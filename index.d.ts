@@ -71,7 +71,8 @@ declare module "dns" {
 declare module "net" {
     import { _ } from "streamline-runtime";
     import * as stream from "stream";
-    export interface Server extends Socket {
+    import * as events from "events";
+    export interface Server extends events.EventEmitter {
         getConnections(_: _): number;
     }
 }
