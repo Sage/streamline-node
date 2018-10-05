@@ -221,7 +221,7 @@ declare module "tls" {
     export interface TLSSocket {
         renegotiate(options: { rejectUnauthorized?: boolean, requestCert?: boolean }, _: _): void;
     }
-    export interface Server {
+    /*export interface Server {
         addListener(event: "tlsClientError", _: _): TLSSocket;
         emit(event: "newSession", sessionId: any, sessionData: any, _: _): Buffer;
         emit(event: "resumeSession", sessionId: any, _: _): any;
@@ -229,7 +229,7 @@ declare module "tls" {
         once(event: "tlsClientError", _: _): TLSSocket;
         prependListener(event: "tlsClientError", _: _): TLSSocket;
         prependOnceListener(event: "tlsClientError", _: _): TLSSocket;
-    }
+    }*/
 }
 declare module "crypto" {
     import { _ } from "streamline-runtime";
@@ -243,7 +243,7 @@ declare module "crypto" {
     export function randomFill(buffer: Buffer, offset: number, size: number, _: _): Buffer;
     export function randomFill(buffer: Uint8Array, offset: number, size: number, _: _): Uint8Array;
 }
-declare module "stream" {
+/*declare module "stream" {
     import { _ } from "streamline-runtime";
     import * as events from "events";
     namespace internal {
@@ -261,7 +261,7 @@ declare module "stream" {
             _destroy(error: Error | null, _: _): void;
         }
     }
-}
+}*/
 declare module "domain" {
     import { _ } from "streamline-runtime";
     import * as events from "events";
@@ -278,7 +278,7 @@ declare module "http2" {
     import * as tls from "tls";
     import * as url from "url";
     import { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
-    export interface Http2Session extends events.EventEmitter {
+    /*export interface Http2Session extends events.EventEmitter {
         addListener(event: "goaway", _: _): number;
         addListener(event: "goaway", _: [_]): [number, Buffer];
         addListener(event: "socketError", _: _): void;
@@ -318,7 +318,7 @@ declare module "http2" {
         prependListener(event: "socketError", _: _): void;
         prependOnceListener(event: "sessionError", _: _): void;
         prependOnceListener(event: "socketError", _: _): void;
-    }
+    }*/
     export interface Http2ServerResponse {
         write(chunk: string | Buffer, _?: _): void;
         write(chunk: string | Buffer, encoding?: string, _?: _): void;
