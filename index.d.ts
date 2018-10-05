@@ -212,25 +212,6 @@ declare module "fs" {
     export function copyFile(src: PathLike, dest: PathLike, _: _): void;
     export function copyFile(src: PathLike, dest: PathLike, flags: number, _: _): void;
 }
-declare module "tls" {
-    import { _ } from "streamline-runtime";
-    import * as crypto from "crypto";
-    import * as dns from "dns";
-    import * as net from "net";
-    import * as stream from "stream";
-    export interface TLSSocket {
-        renegotiate(options: { rejectUnauthorized?: boolean, requestCert?: boolean }, _: _): void;
-    }
-    /*export interface Server {
-        addListener(event: "tlsClientError", _: _): TLSSocket;
-        emit(event: "newSession", sessionId: any, sessionData: any, _: _): Buffer;
-        emit(event: "resumeSession", sessionId: any, _: _): any;
-        on(event: "tlsClientError", _: _): TLSSocket;
-        once(event: "tlsClientError", _: _): TLSSocket;
-        prependListener(event: "tlsClientError", _: _): TLSSocket;
-        prependOnceListener(event: "tlsClientError", _: _): TLSSocket;
-    }*/
-}
 declare module "crypto" {
     import { _ } from "streamline-runtime";
     export function pbkdf2(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number, digest: string, _: _): Buffer;
@@ -243,85 +224,10 @@ declare module "crypto" {
     export function randomFill(buffer: Buffer, offset: number, size: number, _: _): Buffer;
     export function randomFill(buffer: Uint8Array, offset: number, size: number, _: _): Uint8Array;
 }
-/*declare module "stream" {
-    import { _ } from "streamline-runtime";
-    import * as events from "events";
-    namespace internal {
-        export interface Readable extends Stream {
-            _destroy(error: Error | null, _: _): void;
-        }
-        export interface Writable extends Stream {
-            _write(chunk: any, encoding: string, _: _): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, _: _): void;
-            _destroy(error: Error | null, _: _): void;
-        }
-        export interface Duplex extends Readable {
-            _write(chunk: any, encoding: string, _: _): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, _: _): void;
-            _destroy(error: Error | null, _: _): void;
-        }
-    }
-}*/
 declare module "domain" {
     import { _ } from "streamline-runtime";
     import * as events from "events";
     export interface Domain extends events.EventEmitter {
         bind(_: _): any;
-    }
-}
-declare module "http2" {
-    import { _ } from "streamline-runtime";
-    import * as events from "events";
-    import * as fs from "fs";
-    import * as net from "net";
-    import * as stream from "stream";
-    import * as tls from "tls";
-    import * as url from "url";
-    import { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
-    /*export interface Http2Session extends events.EventEmitter {
-        addListener(event: "goaway", _: _): number;
-        addListener(event: "goaway", _: [_]): [number, Buffer];
-        addListener(event: "socketError", _: _): void;
-        on(event: "goaway", _: _): number;
-        on(event: "goaway", _: [_]): [number, Buffer];
-        on(event: "socketError", _: _): void;
-        once(event: "goaway", _: _): number;
-        once(event: "goaway", _: [_]): [number, Buffer];
-        once(event: "socketError", _: _): void;
-        prependListener(event: "goaway", _: _): number;
-        prependListener(event: "goaway", _: [_]): [number, Buffer];
-        prependListener(event: "socketError", _: _): void;
-        prependOnceListener(event: "goaway", _: _): number;
-        prependOnceListener(event: "goaway", _: [_]): [number, Buffer];
-        prependOnceListener(event: "socketError", _: _): void;
-    }
-    export interface Http2Server extends net.Server {
-        addListener(event: "sessionError", _: _): void;
-        addListener(event: "socketError", _: _): void;
-        on(event: "sessionError", _: _): void;
-        on(event: "socketError", _: _): void;
-        once(event: "sessionError", _: _): void;
-        once(event: "socketError", _: _): void;
-        prependListener(event: "sessionError", _: _): void;
-        prependListener(event: "socketError", _: _): void;
-        prependOnceListener(event: "sessionError", _: _): void;
-        prependOnceListener(event: "socketError", _: _): void;
-    }
-    export interface Http2SecureServer extends tls.Server {
-        addListener(event: "sessionError", _: _): void;
-        addListener(event: "socketError", _: _): void;
-        on(event: "sessionError", _: _): void;
-        on(event: "socketError", _: _): void;
-        once(event: "sessionError", _: _): void;
-        once(event: "socketError", _: _): void;
-        prependListener(event: "sessionError", _: _): void;
-        prependListener(event: "socketError", _: _): void;
-        prependOnceListener(event: "sessionError", _: _): void;
-        prependOnceListener(event: "socketError", _: _): void;
-    }*/
-    export interface Http2ServerResponse {
-        write(chunk: string | Buffer, _?: _): void;
-        write(chunk: string | Buffer, encoding?: string, _?: _): void;
-        createPushResponse(headers: OutgoingHttpHeaders, _: _): Http2ServerResponse;
     }
 }
