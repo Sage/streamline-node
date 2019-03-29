@@ -9,9 +9,22 @@ var closeRe = /^\s*\}/;
 var importRe = /^\s*import /;
 
 var ns = false;
+var skippingModule = false;
 
 var result = fs.readFileSync(input, 'utf8').split('\n').reduce(function(lines, line) {
     var m;
+
+    // skip modules that generate conflicting type definitions
+    if (/^declare module "(tls|stream|http2")/.test(line)) {
+        skippingModule = true;
+        return lines;
+    } else if (skippingModule && /^\}/.test(line)) {
+        skippingModule = false;
+        return lines;
+    } else if (skippingModule) {
+        return lines;
+    }
+
     if (m = /^\s*(?:\w|\().*?(\w+)\s*\??\s*:\s*(\(err[^)]*\)\s*=>\s*(?:void|any))\s*\)\s*:\s*([^;\)]+)/.exec(line)) {
         if (/\bevent: "(error|lookup)",/.test(line)) return lines;
         var pair = m[2].split(/\)\s*=>\s*/);
